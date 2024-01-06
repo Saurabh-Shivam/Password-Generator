@@ -9,7 +9,7 @@ const lowercaseCheck = document.querySelector("#lowercase");
 const numbersCheck = document.querySelector("#numbers");
 const symbolsCheck = document.querySelector("#symbols");
 const indicator = document.querySelector("[data-indicator]");
-const generateBtn = document.querySelector(".generateBtn");
+const generateBtn = document.querySelector(".generateButton");
 const allCheckBox = document.querySelectorAll("input[type=checkbox]");
 const symbols = '~!@#$%^&*()_+=-{}[]:;"<>,.?/';
 
@@ -18,18 +18,23 @@ let password = "";
 let passwordLength = 10;
 let checkCount = 0;
 handleSlider();
-// set strength circle color to grey
+setIndicator("#ccc");
 
 // for setting password length
 function handleSlider() {
   inputSlider.value = passwordLength;
   lengthDisplay.innerText = passwordLength;
+  // finding width and height for slider
+  const min = inputSlider.min;
+  const max = inputSlider.max;
+  inputSlider.style.backgroundSize =
+    ((passwordLength - min) * 100) / (max - min) + "% 100%";
 }
 
 // for changing the indicator div color
 function setIndicator(color) {
   indicator.style.backgroundColor = color;
-  indicator.style.boxShadow = color;
+  indicator.style.boxShadow = `0px 0px 12px 1px ${color}`;
 }
 
 // for getting random intergers
@@ -105,7 +110,7 @@ async function copyContent() {
 
 // for shuffling password
 function shufflePassword(array) {
-  //Fisher Yates Method
+  //Fisher Yates Algorithm
   for (let i = array.length - 1; i > 0; i--) {
     //random J, find out using random function
     const j = Math.floor(Math.random() * (i + 1));
